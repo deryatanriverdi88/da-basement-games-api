@@ -1,0 +1,2 @@
+class FavoriteCard < ApplicationRecord
+end
