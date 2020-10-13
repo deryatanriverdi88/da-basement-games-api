@@ -17,4 +17,10 @@ class FavoriteCardsController < ApplicationController
             render json: {errors: favorite_card.errors.full_messages}
         end
     end
+
+    def update
+        favorite_card = FavoriteCard.find(params[:id])
+        favorite_card.update(update_params)
+        render json: favorite_card
+    end
 end
