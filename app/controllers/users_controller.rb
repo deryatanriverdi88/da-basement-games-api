@@ -3,4 +3,13 @@ class UsersController < ApplicationController
         users = User.all
         render json: users
     end
+
+    def create
+        user = User.create(user_params)
+        if user.valid?
+            render json: { token: encoded_token(user_payload(user)), current_user: user}
+        else
+            render json: { error: user.errors.full_messages}
+        end
+    end
 end
