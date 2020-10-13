@@ -11,7 +11,7 @@ class FavoriteCardsController < ApplicationController
 
     def create
         favorite_card = FavoriteCard.create(favorite_card_params)
-        if favorite_card.valid? && current_user['role'] == "admin"
+        if favorite_card.valid?
             render json: favorite_card
         else
             render json: {errors: favorite_card.errors.full_messages}
