@@ -10,7 +10,7 @@ class SessionController < ApplicationController
                 render json: {error: "INCORRECT INFIORMATION, PLEASE TRY AGAIN"}
             end
         else
-            render json: {error: "INCORRECT INFIORMATION, PLEASE TRY AGAIN"}
+            render json: {error: errors.full_messages}
         end
     end
 end
