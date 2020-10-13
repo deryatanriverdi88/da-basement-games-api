@@ -35,4 +35,9 @@ class UsersController < ApplicationController
           render json: { error: user.errors.full_messages}
         end
     end
+
+    def destroy
+        user = User.find(params[:id])
+        user.destroy
+    end
 end
