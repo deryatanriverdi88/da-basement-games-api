@@ -23,4 +23,9 @@ class FavoriteCardsController < ApplicationController
         favorite_card.update(update_params)
         render json: favorite_card
     end
+
+    def destroy
+        favorite_card = FavoriteCard.find(params[:id])
+        favorite_card.destroy
+    end
 end
