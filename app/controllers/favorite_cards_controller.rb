@@ -28,4 +28,10 @@ class FavoriteCardsController < ApplicationController
         favorite_card = FavoriteCard.find(params[:id])
         favorite_card.destroy
     end
+
+    private
+
+    def favorite_card_params
+        params.permit(:user_id, :magic_the_gatherig_card_id, :amount, :foil, :normal)
+    end
 end
