@@ -25,4 +25,14 @@ class UsersController < ApplicationController
             render json: {error: 'There is no user found'}
         end
     end
+
+    def update
+        user = User.find(params[:id])
+        user.update(update_params)
+        if user.update(update_params)
+            render json: user
+        else
+          render json: { error: user.errors.full_messages}
+        end
+    end
 end
