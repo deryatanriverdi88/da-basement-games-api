@@ -7,8 +7,11 @@ ruby '2.6.1'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.4'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
+
+gem 'rest-client', '~> 2.1.0'
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
@@ -23,7 +26,19 @@ gem 'puma', '~> 4.1'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-# gem 'rack-cors'
+gem 'rack-cors'
+
+gem 'activerecord-reset-pk-sequence'
+
+gem 'unidecoder', '~> 1.1', '>= 1.1.2'
+
+gem 'neatjson', '~> 0.8.1'
+
+gem 'dotenv-rails', groups: [:development, :test]
+
+gem 'bcrypt-ruby', '3.1.2'
+gem 'jwt', '~> 1.5', '>= 1.5.4'
+gem 'active_model_serializers', '~> 0.10.2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
