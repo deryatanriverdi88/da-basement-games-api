@@ -17,4 +17,12 @@ class UsersController < ApplicationController
         user = User.find(params[:id])
         render json: user
     end
+
+    def profile
+        if current_user
+            render json: current_user
+        else
+            render json: {error: 'There is no user found'}
+        end
+    end
 end
