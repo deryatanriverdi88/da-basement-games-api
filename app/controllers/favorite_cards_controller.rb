@@ -8,4 +8,13 @@ class FavoriteCardsController < ApplicationController
         favorite_card = FavoriteCard.find(params[:id])
         render json: favorite_card
     end
+
+    def create
+        favorite_card = FavoriteCard.create(favorite_card_params)
+        if favorite_card.valid?
+            render json: favorite_card
+        else
+            render json: {errors: favorite_card.errors.full_messages}
+        end
+    end
 end
