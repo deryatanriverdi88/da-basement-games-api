@@ -3,7 +3,7 @@ class CreateFavoriteCards < ActiveRecord::Migration[6.0]
     create_table :favorite_cards do |t|
       t.integer :user_id
       t.integer :amount
-      t.boolean, :foil
+      t.boolean :foil
       t.boolean :normal
       t.string :name
       t.string :img_url
