@@ -1,6 +1,6 @@
 class FavoriteCardsController < ApplicationController
     def index
-        favorite_cards = FavoriteCard.all
+        favorite_cards = FavoriteCard.all.alphabetical
         render json: favorite_cards
     end
 
