@@ -53,8 +53,6 @@ token = JSON.parse(token)
         puts 'card updated' + ' card normal_low_price => ' + c['normal_low_price'].to_s
         puts 'card updated' + ' card foil_low_price => ' + c['foil_low_price'].to_s
         puts 'foil => ', c['foil']
-    end
-
 end
 
 puts "Seeded 🍇"
