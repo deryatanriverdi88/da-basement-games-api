@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_20_181127) do
+ActiveRecord::Schema.define(version: 2020_10_20_185634) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "binders", force: :cascade do |t|
+    t.string "name"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_binders_on_user_id"
+  end
 
   create_table "favorite_cards", force: :cascade do |t|
     t.integer "user_id"
@@ -39,7 +47,8 @@ ActiveRecord::Schema.define(version: 2020_10_20_181127) do
     t.decimal "foil_market_price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "binder"
+    t.bigint "binder_id"
+    t.index ["binder_id"], name: "index_favorite_cards_on_binder_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -51,4 +60,6 @@ ActiveRecord::Schema.define(version: 2020_10_20_181127) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "binders", "users"
+  add_foreign_key "favorite_cards", "binders"
 end
