@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :binders
   resources :favorite_cards
   resources :users
 
