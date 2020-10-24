@@ -27,7 +27,6 @@ ActiveRecord::Schema.define(version: 2020_10_20_185634) do
     t.integer "user_id"
     t.integer "amount"
     t.boolean "foil"
-    t.boolean "normal"
     t.string "name"
     t.string "img_url"
     t.integer "category_id"
