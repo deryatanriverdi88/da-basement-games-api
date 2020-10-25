@@ -32,10 +32,10 @@ class FavoriteCardsController < ApplicationController
     private
 
     def favorite_card_params
-        params.permit(:user_id, :binder_id, :amount, :foil, :name, :img_url, :category_id, :product_id, :group_id, :rarity, :sub_type, :text, :group_name, :normal_low_price , :normal_mid_price, :normal_high_price, :normal_market_price, :foil_low_price, :foil_mid_price, :foil_high_price,:foil_market_price)
+        params.permit(:user_id, :binder_id, :amount, :foil, :icon, :name, :img_url, :category_id, :product_id, :group_id, :rarity, :sub_type, :text, :group_name, :normal_low_price , :normal_mid_price, :normal_high_price, :normal_market_price, :foil_low_price, :foil_mid_price, :foil_high_price,:foil_market_price)
     end
 
     def update_params
-        params.permit(:amount)
+        params.permit(:amount, :icon)
     end
 end
