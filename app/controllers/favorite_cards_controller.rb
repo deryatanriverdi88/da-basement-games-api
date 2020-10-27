@@ -28,8 +28,8 @@ class FavoriteCardsController < ApplicationController
     end
 
     def create
-    favorite_card = FavoriteCard.find_by(product_id: params[:product_id])
-        if favorite_card && favorite_card[:binder_id] === params[:binder_id]
+    favorite_card = FavoriteCard.find_by(product_id: params[:product_id], binder_id: params[:binder_id])
+        if favorite_card
             amount = favorite_card[:amount]
             favorite_card.update(amount: amount += params[:amount])
         else
