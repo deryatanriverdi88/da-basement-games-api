@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   post "/login", to: "session#login"
   post '/signup', to: 'users#create'
   get '/profile', to: 'users#profile'
-  get '/card', to: 'favorite_cards#card', as: 'card'
+  get '/cards', to: 'favorite_cards#cards', as: 'cards'
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
