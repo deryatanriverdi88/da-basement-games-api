@@ -7,6 +7,15 @@ class BindersController < ApplicationController
         render json: Binder.find(params[:id])
     end
 
+    def binder_item
+        binders = Binder.where(
+            Binder.arel_table[:name]
+               .lower
+               .matches(params[:binderName].downcase)
+        )
+        render json: binders
+    end
+
     def create
         binder = Binder.create(binder_params)
         if binder.valid?

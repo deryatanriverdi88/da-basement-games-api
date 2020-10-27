@@ -5,9 +5,9 @@ class FavoriteCardsController < ApplicationController
     end
 
     def cards
-        favorite_cards = []
+    favorite_cards = []
         if params[:rarity]
-            favorite_cards = FavoriteCard.where(
+            favorite_cards =  FavoriteCard.where(
                 FavoriteCard.arel_table[:rarity]
                    .lower
                    .matches(params[:rarity].downcase)
@@ -17,12 +17,6 @@ class FavoriteCardsController < ApplicationController
                 FavoriteCard.arel_table[:group_name]
                    .lower
                    .matches(params[:setName].downcase)
-            )
-        elsif params[:binderName]
-            favorite_cards = FavoriteCard.where(
-                FavoriteCard.arel_table[:binder.name]
-                   .lower
-                   .matches(params[:binderName].downcase)
             )
         end
         render json: favorite_cards
