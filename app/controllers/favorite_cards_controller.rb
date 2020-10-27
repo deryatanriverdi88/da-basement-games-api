@@ -4,6 +4,15 @@ class FavoriteCardsController < ApplicationController
         render json: favorite_cards
     end
 
+    def card
+        favorite_card = FavoriteCard.where(
+            FavoriteCard.arel_table[:rarity]
+               .lower
+               .matches("%" + params[:rarity].downcase + "%")
+        )
+        render json: favorite_card
+    end
+
     def show
         favorite_card = FavoriteCard.find(params[:id])
         render json: favorite_card
