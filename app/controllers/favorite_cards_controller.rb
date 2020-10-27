@@ -28,12 +28,11 @@ class FavoriteCardsController < ApplicationController
     end
 
     def create
-        if FavoriteCard.exists?(product_id: params[:product_id])
-            favorite_card = FavoriteCard.find_by(product_id: params[:product_id])
-            # byebug
+    favorite_card = FavoriteCard.find_by(product_id: params[:product_id])
+        if favorite_card && favorite_card[:binder_id] === params[:binder_id]
             amount = favorite_card[:amount]
             favorite_card.update(amount: amount += params[:amount])
-        elsif !FavoriteCard.exists?(product_id: params[:product_id])
+        else
             favorite_card = FavoriteCard.create(favorite_card_params)
         end
         if favorite_card.valid?
