@@ -10,7 +10,7 @@ class FavoriteCardsController < ApplicationController
             favorite_cards = FavoriteCard.where(
                 FavoriteCard.arel_table[:rarity]
                    .lower
-                   .matches("%" + params[:rarity].downcase + "%")
+                   .matches(params[:rarity].downcase)
             )
         elsif params[:setName]
             favorite_cards = FavoriteCard.where(
