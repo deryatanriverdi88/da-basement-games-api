@@ -28,7 +28,14 @@ class FavoriteCardsController < ApplicationController
     end
 
     def create
-        favorite_card = FavoriteCard.create(favorite_card_params)
+        if FavoriteCard.exists?(product_id: params[:product_id])
+            favorite_card = FavoriteCard.find_by(product_id: params[:product_id])
+            # byebug
+            amount = favorite_card[:amount]
+            favorite_card.update(amount: amount += params[:amount])
+        elsif !FavoriteCard.exists?(product_id: params[:product_id])
+            favorite_card = FavoriteCard.create(favorite_card_params)
+        end
         if favorite_card.valid?
             render json: favorite_card
         else
@@ -54,6 +61,6 @@ class FavoriteCardsController < ApplicationController
     end
 
     def update_params
-        params.permit(:amount, :icon)
+        params.permit(:amount)
     end
 end
