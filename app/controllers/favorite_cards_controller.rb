@@ -16,7 +16,7 @@ class FavoriteCardsController < ApplicationController
             favorite_cards = FavoriteCard.where(
                 FavoriteCard.arel_table[:group_name]
                    .lower
-                   .matches("%" + params[:setName].downcase + "%")
+                   .matches(params[:setName].downcase)
             )
         end
         render json: favorite_cards
