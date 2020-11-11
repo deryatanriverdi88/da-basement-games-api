@@ -60,6 +60,6 @@ class FavoriteCardsController < ApplicationController
     end
 
     def update_params
-        params.permit(:amount)
+        params.permit(:amount, :binder, :foil)
     end
 end
