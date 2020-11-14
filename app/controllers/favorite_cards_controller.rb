@@ -20,7 +20,7 @@ class FavoriteCardsController < ApplicationController
             )
         elsif params[:binder]
             favorite_cards = FavoriteCard.where(
-                FavoriteCard.arel_table[:binder_id]==params[:binder]
+                FavoriteCard.arel_table[:binder_id].eq(params[:binder])
             )
         end
         render json: favorite_cards
