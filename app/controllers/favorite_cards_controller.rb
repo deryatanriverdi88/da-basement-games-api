@@ -26,24 +26,13 @@ class FavoriteCardsController < ApplicationController
         render json: favorite_cards
     end
 
+
     def cards_with_binder
         favorite_cards = []
         if params[:rarity]
-            favorite_cards =  FavoriteCard.where(
-                FavoriteCard.arel_table[:rarity]
-                   .lower
-                   .matches(params[:rarity].downcase)
-            )&& FavoriteCard.where(
-                FavoriteCard.arel_table[:binder_id].eq(params[:binder])
-            )
+            favorite_cards = FavoriteCard.all.filter{|card| card[:rarity] == params[:rarity] && card[:binder_id] == params[:binder].to_i}
         elsif params[:setName]
-            favorite_cards = FavoriteCard.where(
-                FavoriteCard.arel_table[:group_name]
-                   .lower
-                   .matches(params[:setName].downcase)
-            )&& FavoriteCard.where(
-                FavoriteCard.arel_table[:binder_id].eq(params[:binder])
-            )
+            favorite_cards = FavoriteCard.all.filter{|card| card[:group_name] == params[:setName] && card[:binder_id] == params[:binder].to_i}
         end
         render json: favorite_cards
     end
