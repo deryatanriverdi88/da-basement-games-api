@@ -18,10 +18,8 @@ class FavoriteCardsController < ApplicationController
                    .lower
                    .matches(params[:setName].downcase)
             )
-        elsif params[:binder]
-            favorite_cards = FavoriteCard.where(
-                FavoriteCard.arel_table[:binder_id].eq(params[:binder])
-            )
+        elsif params[:binder] === "no-binder"
+            favorite_cards = FavoriteCard.all.filter{|card| !card.binder_id}
         end
         render json: favorite_cards
     end
