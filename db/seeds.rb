@@ -91,7 +91,6 @@ FavoriteCard.default_order.all.each do |card|
     color_response =RestClient.get('https://api.scryfall.com/cards/tcgplayer/'+ card['product_id'].to_s)
     color_json = JSON.parse(color_response)["color_identity"].pop
     puts color_json
-    puts color_json.length
 
     if color_json === "W" && color_json.length == 1
         puts "White"
