@@ -89,9 +89,9 @@ FavoriteCard.default_order.all.each do |card|
     puts 'id => ' + card['id'].to_s
     puts 'product_id => ' + card['product_id'].to_s
     color_response =RestClient.get('https://api.scryfall.com/cards/tcgplayer/'+ card['product_id'].to_s)
-    color_json = JSON.parse(color_response)["colors"]
+    color_json = JSON.parse(color_response)["colors"].pop
     puts color_json
-    if color_json == "W"
+    if color_json === "W"
         puts "White"
         card.update(color: "White")
     elsif color_json == "U"
@@ -107,7 +107,7 @@ FavoriteCard.default_order.all.each do |card|
         puts "Green"
         card.update(color: "Green")
     else
-        puts "multicolor"
+        puts "Multicolor"
         card.update(color: "Multicolor")
     end
 end
