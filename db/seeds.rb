@@ -13,47 +13,47 @@
 # #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 # #   Character.create(name: 'Luke', movie: movies.first)
 
-ENV["api_private_key"]
-ENV["api_public_key"]
-payload = "grant_type=client_credentials&client_id="+ENV["api_public_key"]+"&client_secret="+ENV["api_private_key"]
+# ENV["api_private_key"]
+# ENV["api_public_key"]
+# payload = "grant_type=client_credentials&client_id="+ENV["api_public_key"]+"&client_secret="+ENV["api_private_key"]
 
-token = RestClient.post("https://api.tcgplayer.com/token", payload  ,headers={"content-type": "application/x-www-form-urlencoded"})
+# token = RestClient.post("https://api.tcgplayer.com/token", payload  ,headers={"content-type": "application/x-www-form-urlencoded"})
 
-token = JSON.parse(token)
-@access_token = token['access_token']
+# token = JSON.parse(token)
+# @access_token = token['access_token']
 
-FavoriteCard.default_order.all.each do |c|
-        puts 'card name => ' + c['name'] + ' product_id => ' + c['product_id'].to_s + ' id => ' + c['id'].to_s
-        price_response = RestClient.get'https://api.tcgplayer.com/pricing/product/' + c['product_id'].to_s, {:Authorization => 'Bearer '+ @access_token}
+# FavoriteCard.default_order.all.each do |c|
+#         puts 'card name => ' + c['name'] + ' product_id => ' + c['product_id'].to_s + ' id => ' + c['id'].to_s
+#         price_response = RestClient.get'https://api.tcgplayer.com/pricing/product/' + c['product_id'].to_s, {:Authorization => 'Bearer '+ @access_token}
 
-        price_json = JSON.parse(price_response)['results']
-        puts 'price_json => ', price_json
-        puts 'card in database => ', c['product_id']
-        puts 'card id database => ', c['id']
-        price_json.map do |price_data|
-        puts 'subTypeName => ', price_data['subTypeName']
-            if price_data['subTypeName'] == 'Normal'
-                puts 'it should be normal price = >', price_data['lowPrice']
-                c.update(
-                    normal_low_price: price_data['lowPrice'],
-                    normal_mid_price: price_data['midPrice'],
-                    normal_high_price: price_data['highPrice'],
-                    normal_market_price: price_data['marketPrice']
-                )
-            elsif price_data['subTypeName'] == 'Foil'
-                puts 'it should be foil price = >', price_data['lowPrice']
-                c.update(
-                    foil_low_price: price_data['lowPrice'],
-                    foil_mid_price:price_data['midPrice'],
-                    foil_high_price: price_data['highPrice'],
-                    foil_market_price:price_data['marketPrice']
-                )
-            end
-        end
-        puts 'card updated' + ' card normal_low_price => ' + c['normal_low_price'].to_s
-        puts 'card updated' + ' card foil_low_price => ' + c['foil_low_price'].to_s
-        puts 'foil => ', c['foil']
-end
+#         price_json = JSON.parse(price_response)['results']
+#         puts 'price_json => ', price_json
+#         puts 'card in database => ', c['product_id']
+#         puts 'card id database => ', c['id']
+#         price_json.map do |price_data|
+#         puts 'subTypeName => ', price_data['subTypeName']
+#             if price_data['subTypeName'] == 'Normal'
+#                 puts 'it should be normal price = >', price_data['lowPrice']
+#                 c.update(
+#                     normal_low_price: price_data['lowPrice'],
+#                     normal_mid_price: price_data['midPrice'],
+#                     normal_high_price: price_data['highPrice'],
+#                     normal_market_price: price_data['marketPrice']
+#                 )
+#             elsif price_data['subTypeName'] == 'Foil'
+#                 puts 'it should be foil price = >', price_data['lowPrice']
+#                 c.update(
+#                     foil_low_price: price_data['lowPrice'],
+#                     foil_mid_price:price_data['midPrice'],
+#                     foil_high_price: price_data['highPrice'],
+#                     foil_market_price:price_data['marketPrice']
+#                 )
+#             end
+#         end
+#         puts 'card updated' + ' card normal_low_price => ' + c['normal_low_price'].to_s
+#         puts 'card updated' + ' card foil_low_price => ' + c['foil_low_price'].to_s
+#         puts 'foil => ', c['foil']
+# end
 
 # FavoriteCard.default_order.all.each do |c|
 #     puts ' id => ' + c['id'].to_s
@@ -84,5 +84,29 @@ end
 #     }
 
 # end
+
+FavoriteCard.default_order.all.each do |card|
+    puts 'id => ' + card['id'].to_s
+    puts 'product_id' + card['product_id']
+    color_response =RestClient.get('https://api.scryfall.com/cards/tcgplayer/'+ card['product_id'].to_s)
+    color_json = JSON.parse(color_response)
+    if(color_json.length > 1)
+        puts "multicolor"
+        card.update(color: "Multicolor")
+    else
+        color = color_json.pop()
+        if color == "W"
+            card.update(color: "White")
+        elsif color == "U"
+            card.update(color: "Blue")
+        elsif color == "B"
+            card.update(color: "Black")
+        elsif color == "R"
+            card.update(color: "Red")
+        elsif color == "G"
+            card.update(color: "Green")
+        end
+    end
+end
 
 puts "Seeded 🍇"
