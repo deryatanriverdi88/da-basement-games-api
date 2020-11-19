@@ -95,19 +95,19 @@ FavoriteCard.default_order.all.each do |card|
         puts "multicolor"
         card.update(color: "Multicolor")
     else
-        if color == "W"
+        if color_json == "W"
             puts "White"
             card.update(color: "White")
-        elsif color == "U"
+        elsif color_json == "U"
             puts "Blue"
             card.update(color: "Blue")
-        elsif color == "B"
+        elsif color_json == "B"
             puts "Black"
             card.update(color: "Black")
-        elsif color == "R"
+        elsif color_json == "R"
             puts "Red"
             card.update(color: "Red")
-        elsif color == "G"
+        elsif color_json == "G"
             puts "Green"
             card.update(color: "Green")
         end
