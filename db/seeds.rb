@@ -90,7 +90,7 @@ FavoriteCard.default_order.all.each do |card|
     puts 'product_id => ' + card['product_id'].to_s
     color_response =RestClient.get('https://api.scryfall.com/cards/tcgplayer/'+ card['product_id'].to_s)
     color_json = JSON.parse(color_response)["colors"]
-    console.log(color_json)
+    puts color_json
     if(color_json.length > 1)
         puts "multicolor"
         card.update(color: "Multicolor")
