@@ -111,7 +111,7 @@ FavoriteCard.default_order.all.each do |card|
     elsif color_json.length > 2
         puts "Multicolor"
         card.update(color: "Multicolor")
-    elsif color_json.length == 0
+    elsif color_json.length == nil
         puts "Colorless"
         card.update(color: "Colorless")
     end
