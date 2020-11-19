@@ -95,7 +95,6 @@ FavoriteCard.default_order.all.each do |card|
         puts "multicolor"
         card.update(color: "Multicolor")
     else
-        color = color_json.pop()
         if color == "W"
             puts "White"
             card.update(color: "White")
