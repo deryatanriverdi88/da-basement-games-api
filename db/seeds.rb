@@ -82,38 +82,42 @@ FavoriteCard.default_order.all.each do |card|
         e.response.body
         end
     json_response = JSON.parse(response_body)
-    puts json_response
+    # puts json_response
     if json_response['code'] != "not_found"
+        puts "color_identity => "
         puts json_response['color_identity']
         if json_response
-            if json_response.length > 2
+            json_response = json_response['color_identity']
+            if json_response.length == 1
+                if json_response.include?("W")
+                    puts "White"
+                    card.update(color: "White")
+                elsif json_response.include?("U")
+                    puts "Blue"
+                    card.update(color: "Blue")
+                elsif json_response.include?("B")
+                    puts "Black"
+                    card.update(color: "Black")
+                elsif json_response.include?("R")
+                    puts "Red"
+                    card.update(color: "Red")
+                elsif json_response.include?("G")
+                    puts "Green"
+                card.update(color: "Green")
+                end
+            elsif json_response.length > 1
                 puts "Multicolor"
                 card.update(color: "Multicolor")
-            elsif json_response == nil
+            elsif json_response.empty?
                 puts "Colorless"
                 card.update(color: "Colorless")
-            elsif json_response.pop === "W" && json_response.length == 1
-                puts "White"
-                card.update(color: "White")
-            elsif json_response.pop == "U" && json_response.length == 1
-                puts "Blue"
-                card.update(color: "Blue")
-            elsif json_response.pop == "B" && json_response.length == 1
-                puts "Black"
-                card.update(color: "Black")
-            elsif json_response.pop == "R" && json_response.length == 1
-                puts "Red"
-                card.update(color: "Red")
-            elsif json_response.pop == "G" && json_response.length == 1
-                puts "Green"
-                card.update(color: "Green")
             end
-        else
-            puts "error"
-            card.update(
-                color: ""
-            )
         end
+    else
+        puts "error"
+        card.update(
+            color: ""
+        )
     end
 end
 
