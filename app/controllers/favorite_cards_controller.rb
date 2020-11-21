@@ -31,6 +31,8 @@ class FavoriteCardsController < ApplicationController
             favorite_cards = FavoriteCard.all.filter{|card| card[:rarity] == params[:rarity] && card[:binder_id] == params[:binder].to_i}
         elsif params[:setName]
             favorite_cards = FavoriteCard.all.filter{|card| card[:group_name] == params[:setName] && card[:binder_id] == params[:binder].to_i}
+        elsif params[:colorName]
+            favorite_cards = FavoriteCard.all.filter{|card| card[:color] == params[:colorName] && card[:binder_id] == params[:binder].to_i}
         end
         render json: favorite_cards
     end
