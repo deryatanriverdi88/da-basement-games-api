@@ -58,17 +58,6 @@
 # FavoriteCard.default_order.all.each do |c|
 #     puts ' id => ' + c['id'].to_s
 #     puts 'group id => ' + c['group_id'].to_s
-#     # icon_response  =  RestClient.get'https://tcgplayer-cdn.tcgplayer.com/set_icon/' + c['group_id'].to_s + '.jpg'
-
-#     # if icon_response['status'] == 200
-#     #     c.update(
-#     #         icon: icon_json
-#     #     )
-#     # else
-#     #     c.update(
-#     #         icon:  ""
-#     #     )
-#     # end
 
 #     icon_response  =  RestClient.get('https://tcgplayer-cdn.tcgplayer.com/set_icon/' + c['group_id'].to_s + '.jpg'){|response, request, result, block|
 #         case response.code
@@ -82,39 +71,49 @@
 #             )
 #         end
 #     }
-
 # end
 
 FavoriteCard.default_order.all.each do |card|
     puts 'id => ' + card['id'].to_s
     puts 'product_id => ' + card['product_id'].to_s
-    color_response =RestClient.get('https://api.scryfall.com/cards/tcgplayer/'+ card['product_id'].to_s)
-    color_json = JSON.parse(color_response)["color_identity"].pop
-    puts color_json
-
-    if color_json === "W" && color_json.length == 1
-        puts "White"
-        card.update(color: "White")
-    elsif color_json == "U" && color_json.length == 1
-        puts "Blue"
-        card.update(color: "Blue")
-    elsif color_json == "B" && color_json.length == 1
-        puts "Black"
-        card.update(color: "Black")
-    elsif color_json == "R" && color_json.length == 1
-        puts "Red"
-        card.update(color: "Red")
-    elsif color_json == "G" && color_json.length == 1
-        puts "Green"
-        card.update(color: "Green")
-    elsif color_json
-        if color_json.length > 2
-            puts "Multicolor"
-            card.update(color: "Multicolor")
+    response_body = begin
+        RestClient.get('https://api.scryfall.com/cards/tcgplayer/' + card['product_id'].to_s)
+        rescue => e
+        e.response.body
         end
-    elsif color_json == nil
-        puts "Colorless"
-        card.update(color: "Colorless")
+    json_response = JSON.parse(response_body)
+    puts json_response
+    if json_response['code'] != "not_found"
+        puts json_response['color_identity']
+        if json_response
+            if json_response.length > 2
+                puts "Multicolor"
+                card.update(color: "Multicolor")
+            elsif json_response == nil
+                puts "Colorless"
+                card.update(color: "Colorless")
+            elsif json_response.pop === "W" && json_response.length == 1
+                puts "White"
+                card.update(color: "White")
+            elsif json_response.pop == "U" && json_response.length == 1
+                puts "Blue"
+                card.update(color: "Blue")
+            elsif json_response.pop == "B" && json_response.length == 1
+                puts "Black"
+                card.update(color: "Black")
+            elsif json_response.pop == "R" && json_response.length == 1
+                puts "Red"
+                card.update(color: "Red")
+            elsif json_response.pop == "G" && json_response.length == 1
+                puts "Green"
+                card.update(color: "Green")
+            end
+        else
+            puts "error"
+            card.update(
+                color: ""
+            )
+        end
     end
 end
 
