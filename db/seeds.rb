@@ -85,9 +85,16 @@ FavoriteCard.default_order.all.each do |card|
     # puts json_response
     if json_response['code'] != "not_found"
         puts "colors => "
-        puts json_response['colors']
         if json_response
-            json_response = json_response['colors']
+            if json_response['colors']
+                puts json_response['colors']
+                json_response = json_response['colors']
+            elsif json_response["card_faces"]
+                puts json_response["card_faces"][0]['colors']
+                json_response = json_response["card_faces"][0]["colors"]
+            end
+        end
+        if json_response
             if json_response.length == 1
                 if json_response.include?("W")
                     puts "White"
