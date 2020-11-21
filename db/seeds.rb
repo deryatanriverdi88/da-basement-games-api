@@ -84,10 +84,10 @@ FavoriteCard.default_order.all.each do |card|
     json_response = JSON.parse(response_body)
     # puts json_response
     if json_response['code'] != "not_found"
-        puts "color_identity => "
-        puts json_response['color_identity']
+        puts "colors => "
+        puts json_response['colors']
         if json_response
-            json_response = json_response['color_identity']
+            json_response = json_response['colors']
             if json_response.length == 1
                 if json_response.include?("W")
                     puts "White"
