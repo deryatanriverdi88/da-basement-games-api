@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get '/cards', to: 'favorite_cards#cards', as: 'cards'
   get '/cards_with_binder', to: 'favorite_cards#cards_with_binder', as: 'cards_with_binder'
   get '/binder_item', to: 'binders#binder_item', as: 'binder_item'
+  get '/first_ten', to: 'favorite_cards#first_ten', as: 'first_ten'
 
 
 
