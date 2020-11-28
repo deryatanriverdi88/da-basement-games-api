@@ -31,9 +31,12 @@ class FavoriteCardsController < ApplicationController
     end
 
     def first_ten
-        render json:cards = MagicCard.all.alphabetical.first(10)
+        render json:cards = FavoriteCard.all.alphabetical.first(10)
     end
 
+    def sets
+        render json: FavoriteCard.all.alphabetical.uniq(&:group_name)
+    end
 
     def cards_with_binder
         favorite_cards = []

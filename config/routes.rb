@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get '/cards_with_binder', to: 'favorite_cards#cards_with_binder', as: 'cards_with_binder'
   get '/binder_item', to: 'binders#binder_item', as: 'binder_item'
   get '/first_ten', to: 'favorite_cards#first_ten', as: 'first_ten'
-
+  get '/sets', to: "favorite_cards#sets", as: "sets"
 
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
