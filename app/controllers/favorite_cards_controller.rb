@@ -50,6 +50,11 @@ class FavoriteCardsController < ApplicationController
         render json: favorite_cards
     end
 
+    def cards_with_setname
+        favorite_card = []
+        render json: favorite_card = FavoriteCard.all.filter{|card| card[:name] == params[:name] && card[:group_name] == params[:setName]}
+    end
+
     def show
         favorite_card = FavoriteCard.find(params[:id])
         render json: favorite_card
