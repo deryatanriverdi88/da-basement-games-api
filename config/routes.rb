@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get '/binder_item', to: 'binders#binder_item', as: 'binder_item'
   get '/first_ten', to: 'favorite_cards#first_ten', as: 'first_ten'
   get '/sets', to: "favorite_cards#sets", as: "sets"
+  get '/card_with_setname', to: "favorite_cards#card _with_setname", as: "card_with_setname"
   get '/cards_with_setname', to: "favorite_cards#cards_with_setname", as: "cards_with_setname"
 
 
