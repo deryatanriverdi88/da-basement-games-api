@@ -55,6 +55,7 @@ class FavoriteCardsController < ApplicationController
         FavoriteCard.all.alphabetical.map do |card|
             names.push(card.name)
         end
+        render json: names
     end
 
     def find_by_product_id
