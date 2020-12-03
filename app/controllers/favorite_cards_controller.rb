@@ -62,7 +62,7 @@ class FavoriteCardsController < ApplicationController
 
     def find_by_product_id
         favorite_card = []
-        if params.include?(params[:binderId])
+        if params.include?(:binderId)
             favorite_card = FavoriteCard.all.filter{|card| card[:product_id] == params[:productId] && card[:binder_id] == params[:binder].to_i}
         else
             favorite_card = FavoriteCard.where(
