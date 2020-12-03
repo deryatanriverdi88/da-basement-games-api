@@ -53,7 +53,7 @@ class FavoriteCardsController < ApplicationController
     def card_names
         names = []
         FavoriteCard.all.alphabetical.map do |card|
-            names.push(card.name)
+            names.push(card.name + " / " + card.group_name)
         end
         render json: names
     end
