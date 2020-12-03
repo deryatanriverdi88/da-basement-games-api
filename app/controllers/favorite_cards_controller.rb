@@ -50,14 +50,21 @@ class FavoriteCardsController < ApplicationController
         render json: favorite_cards
     end
 
-    def card_with_setname
-        favorite_card = []
-        render json: favorite_card = FavoriteCard.all.filter{|card| card[:name] == params[:name] && card[:group_name] == params[:setName]}
-    end
+    # def card_with_setname
+    #     favorite_card = []
+    #     render json: favorite_card = FavoriteCard.all.filter{|card| card[:name] == params[:name] && card[:group_name] == params[:setName]}
+    # end
 
-    def cards_with_setname
-        favorite_cards = []
-        render json: favorite_cards = FavoriteCard.all.filter{|card| card[:group_name] == params[:setName]}
+    # def cards_with_setname
+    #     favorite_cards = []
+    #     render json: favorite_cards = FavoriteCard.all.filter{|card| card[:group_name] == params[:setName]}
+    # end
+
+    def find_by_product_id
+        favorite_card = FavoriteCard.where(
+            FavoriteCard.arel_table[:product_id].eq(params[:productId])
+        )
+        render json: favorite_card
     end
 
     def show
