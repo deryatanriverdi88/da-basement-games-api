@@ -14,7 +14,6 @@ Rails.application.routes.draw do
   get '/card_with_setname', to: "favorite_cards#card _with_setname", as: "card_with_setname"
   get '/cards_with_setname', to: "favorite_cards#cards_with_setname", as: "cards_with_setname"
   get '/find_by_product_id', to: "favorite_cards#find_by_product_id", as: "find_by_product_id"
-  get '/card_names', to: "favorite_cards#card_names", as: "card_names"
 
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

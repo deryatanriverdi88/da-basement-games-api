@@ -50,15 +50,6 @@ class FavoriteCardsController < ApplicationController
         render json: favorite_cards
     end
 
-    def card_names
-        names = []
-        FavoriteCard.all.alphabetical.map do |card|
-            names.push(card.name + " / " + card.group_name + " / " + card.id.to_s)
-        end
-        render json: names
-    end
-
-
     def find_by_product_id
         favorite_card = []
         if params[:productId] && params[:binderId]
