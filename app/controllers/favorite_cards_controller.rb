@@ -61,9 +61,14 @@ class FavoriteCardsController < ApplicationController
     # end
 
     def find_by_product_id
-        favorite_card = FavoriteCard.where(
-            FavoriteCard.arel_table[:product_id].eq(params[:productId])
-        )
+        favorite_card = []
+        if params.include?(params[:binderId])
+            favorite_card = FavoriteCard.all.filter{|card| card[:product_id] == params[:productId] && card[:binder_id] == params[:binder].to_i}
+        else
+            favorite_card = FavoriteCard.where(
+                FavoriteCard.arel_table[:product_id].eq(params[:productId])
+            )
+        end
         render json: favorite_card
     end
 
