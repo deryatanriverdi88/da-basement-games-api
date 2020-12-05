@@ -17,8 +17,9 @@ class BindersController < ApplicationController
     end
 
     def binder_names
-        binders = Binder.all.map do |binder|
-            binder["name"]
+        binders = []
+        Binder.all.map do |binder|
+            binders.push({binder_name: binder["name"], binder_id: binder['id']})
         end
         render json: binders
     end
