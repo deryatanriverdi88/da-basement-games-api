@@ -3,6 +3,7 @@ class Binder < ApplicationRecord
   has_many :favorite_cards, dependent: :destroy
 
   # validates :private, presence: true
+  validates :name, uniqueness: true
 
   def self.alphabetical
     order(:name)
