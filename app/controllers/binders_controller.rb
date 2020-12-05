@@ -16,6 +16,13 @@ class BindersController < ApplicationController
         render json: binders
     end
 
+    def binder_names
+        binders = Binder.all.map do |binder|
+            binder["name"]
+        end
+        render json: binders
+    end
+
     def create
         binder = Binder.create(binder_params)
         if binder.valid?
