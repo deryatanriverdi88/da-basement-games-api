@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_29_210947) do
+ActiveRecord::Schema.define(version: 2020_10_25_062836) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,18 +61,6 @@ ActiveRecord::Schema.define(version: 2020_11_29_210947) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "wish_lists", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "favorite_card_id", null: false
-    t.integer "amount"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["favorite_card_id"], name: "index_wish_lists_on_favorite_card_id"
-    t.index ["user_id"], name: "index_wish_lists_on_user_id"
-  end
-
   add_foreign_key "binders", "users"
   add_foreign_key "favorite_cards", "binders"
-  add_foreign_key "wish_lists", "favorite_cards"
-  add_foreign_key "wish_lists", "users"
 end
