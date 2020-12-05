@@ -11,7 +11,7 @@ class BindersController < ApplicationController
         binders = Binder.where(
             Binder.arel_table[:name]
                .lower
-               .matches(params[:binderName].downcase)
+               .matches("%" + params[:name].downcase + "%")
         )
         render json: binders
     end
