@@ -18,7 +18,7 @@ class BindersController < ApplicationController
 
     def binder_names
         binders = Binder.all.map do |binder|
-            binder.name
+            binder["name"]
         end
         render json: binders
     end
